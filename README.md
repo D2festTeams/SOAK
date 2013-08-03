@@ -4,6 +4,8 @@ SOAK Chrom Browser Extension.
 
 스크립트를 빠르게 가져와 테스트 해 봅시다.
 
+![demo](https://raw.github.com/D2festTeams/SOAK/gh-pages/soak_demo.gif)
+
 ## install
 
 * 프로젝트 클론
