@@ -22,6 +22,12 @@ SOAK Chrom Browser Extension.
 * 아무 사이트나 접속
 * 확장기능 중 `soak` 을 선택하고 실행하려는 스크립트를 선택.(`jQuery`, `Underscore`? more to come!!!)
 	* 아, `chrome devtools`를 열고 스크립트를 선택하면 어디에 스크립트가 추가되었는지 바로 확인할 수 있음
-* 추가된 스크립트로 사이트를 마음껏 가지고 놀기!!
+* 추가된 스크립트로 사이트를 마음껏 가지고 놀기 :sparkles:
+
+## trouble shoot
+
+`chrome canaray` 최신버전에서 확장기능을 선택해도 팝업창이 보이지 않음
+
+* `chrome://flags` 에서 `GPU compositing on all pages` 를 `disable` 로 설정하여 일시적으로 해결 가능
 
 ## todo
