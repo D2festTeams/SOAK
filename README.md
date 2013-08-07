@@ -2,9 +2,15 @@
 
 SOAK Chrom Browser Extension.
 
-스크립트를 빠르게 가져와 테스트 해 봅시다.
+스크립트를 빠르게 가져와 놀아 봅시다.
 
 ![demo](https://raw.github.com/D2festTeams/SOAK/gh-pages/soak_demo.gif)
+
+## feature
+
+* `javascript`, `css` 를 가져와 현재 페이지에 추가
+* `jQuery plugin` 을 추가 가능 (ex `chardin.js`)
+* `devtools` 의 콘솔을 통해 `javascript`, `css` 추가 (개발 중)
 
 ## install
 
@@ -29,5 +35,3 @@ SOAK Chrom Browser Extension.
 `chrome canaray` 최신버전에서 확장기능을 선택해도 팝업창이 보이지 않음
 
 * `chrome://flags` 에서 `GPU compositing on all pages` 를 `disable` 로 설정하여 일시적으로 해결 가능
-
-## todo
