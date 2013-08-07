@@ -1,10 +1,12 @@
+var scripts;
+
 function tabCallback(scriptInfo) {
   return function(tabs) {
     chrome.tabs.sendMessage(tabs[0].id, {type:'SCRIPT_SELECTED', data:scriptInfo});
   }
 }
 
-function convertDepends(scripts, scriptInfo) {
+function convertDepends(scriptInfo) {
   if (!scriptInfo.depends) return scriptInfo;
 
   var result = /(http\:\/\/|https\:\/\/)/.exec(scriptInfo.depends);
@@ -16,23 +18,24 @@ function convertDepends(scripts, scriptInfo) {
       scriptInfo.depends = scripts[s].url;
       break;
     }
+    delete scriptInfo.depends;
   }
   return scriptInfo;
 }
 
-// FIXME: we don't need to create this handler....
-function handleEvent(scripts) {
-  return function(e) {
-    console.log('click on : ' + e.currentTarget.dataset.index);
-    var selected = e.currentTarget.dataset.index;
-    var scriptInfo = convertDepends(scripts, scripts[selected]);
-    // check depends and convert to url
-    chrome.tabs.query({active:true, currentWindow:true}, tabCallback(scriptInfo));
-  }
+function handleEvent(e) {
+  console.log('click on : ' + e.currentTarget.dataset.index);
+  var selected = e.currentTarget.dataset.index;
+  var scriptInfo = convertDepends(scripts[selected]);
+  // check depends and convert to url
+  chrome.tabs.query({active:true, currentWindow:true}, tabCallback(scriptInfo));
 }
 
 function handleResponse(res) {
   console.log('received : ' + res.type);
+
+  // TODO: merge scripts & res.scripts
+  scripts = res.scripts;
 
   var container  = document.querySelector('.container');
   var firstChild = container.firstChild;
@@ -42,9 +45,9 @@ function handleResponse(res) {
   for(var i = 0 ; i < res.scripts.length ; i++) {
     var div = document.createElement('div');
     div.classList.add('item');
-    div.innerHTML = res.scripts[i].name;
+    div.innerHTML = scripts[i].name;
     div.setAttribute('data-index', i);
-    div.addEventListener('click', handleEvent(res.scripts));
+    div.addEventListener('click', handleEvent);
     container.appendChild(div);
   }
 }
