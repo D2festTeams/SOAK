@@ -17,9 +17,11 @@ function handleEvent(scripts) {
 
 function handleResponse(res) {
   console.log('received : ' + res.type);
-  console.log('received : ' + res.scripts);
 
-  var container = document.querySelector('.container');
+  var container  = document.querySelector('.container');
+  var firstChild = container.firstChild;
+  // TODO: we don't need to clear every child(compare & remove)
+  while (firstChild) container.removeChild(firstChild);
 
   for(var i = 0 ; i < res.scripts.length ; i++) {
     var div = document.createElement('div');
