@@ -5,6 +5,7 @@ function tabCallback(url) {
   }
 }
 
+// FIXME: we don't need to create this handler....
 function handleEvent(scripts) {
   return function(e) {
     console.log('click on : ' + e.currentTarget.dataset.index);
@@ -15,14 +16,19 @@ function handleEvent(scripts) {
 }
 
 function handleResponse(res) {
-  // TODO: update popup list
-  // handleEvent.scripts = res.scripts;
   console.log('received : ' + res.type);
   console.log('received : ' + res.scripts);
-  
-  var divs = document.querySelectorAll('.item');
-  for(var i = 0 ; i < divs.length ; i++)
-    divs[i].addEventListener('click', handleEvent(res.scripts));
+
+  var container = document.querySelector('.container');
+
+  for(var i = 0 ; i < res.scripts.length ; i++) {
+    var div = document.createElement('div');
+    div.classList.add('item');
+    div.innerHTML = res.scripts[i].name;
+    div.setAttribute('data-index', i);
+    div.addEventListener('click', handleEvent(res.scripts));
+    container.appendChild(div);
+  }
 }
 
 function handleContentLoaded() {
