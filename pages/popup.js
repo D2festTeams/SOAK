@@ -1,8 +1,23 @@
-function tabCallback(url) {
+function tabCallback(scriptInfo) {
   return function(tabs) {
-    scripts = handleEvent.scripts;
-    chrome.tabs.sendMessage(tabs[0].id, {type:'SCRIPT_SELECTED', data:url});
+    chrome.tabs.sendMessage(tabs[0].id, {type:'SCRIPT_SELECTED', data:scriptInfo});
   }
+}
+
+function convertDepends(scripts, scriptInfo) {
+  if (!scriptInfo.depends) return scriptInfo;
+
+  var result = /(http\:\/\/|https\:\/\/)/.exec(scriptInfo.depends);
+
+  if (result) return scriptInfo;
+
+  for(var s in scripts) {
+    if (scripts[s].name === scriptInfo.depends) {
+      scriptInfo.depends = scripts[s].url;
+      break;
+    }
+  }
+  return scriptInfo;
 }
 
 // FIXME: we don't need to create this handler....
@@ -10,8 +25,9 @@ function handleEvent(scripts) {
   return function(e) {
     console.log('click on : ' + e.currentTarget.dataset.index);
     var selected = e.currentTarget.dataset.index;
-    var url = scripts[selected];
-    chrome.tabs.query({active:true, currentWindow:true}, tabCallback(url));
+    var scriptInfo = convertDepends(scripts, scripts[selected]);
+    // check depends and convert to url
+    chrome.tabs.query({active:true, currentWindow:true}, tabCallback(scriptInfo));
   }
 }
 
