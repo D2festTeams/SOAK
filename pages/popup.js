@@ -2,7 +2,10 @@ var scripts;
 
 function tabCallback(scriptInfo) {
   return function(tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, {type:'SCRIPT_SELECTED', data:scriptInfo});
+    // save selected script info to "background.js"
+    chrome.extension.sendMessage({type:'SCRIPT_SELECTED', data:scriptInfo});
+    // request reload current page to "content.js"
+    chrome.tabs.sendMessage(tabs[0].id, {type:'SCRIPT_SELECTED'});
   }
 }
 
