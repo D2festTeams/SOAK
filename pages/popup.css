@@ -1,4 +1,5 @@
 body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   overflow: hidden;
   margin: 0px;
   padding: 0px;
@@ -28,6 +29,7 @@ input.soakbar {
   width: 90%;
   padding: 3px 3px;
   border: 1px solid #e8e8e8;
+  outline: none;
 }
 
 div.item:hover {
