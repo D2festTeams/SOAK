@@ -55,9 +55,10 @@ function handleResponse(res) {
   }
 }
 
-function handleContentLoaded() {
+function onload() {
   // send msg to background.js
   chrome.extension.sendMessage({type:'REQ_SCRIPT_LIST'}, handleResponse);
 }
 
-document.addEventListener('DOMContentLoaded', handleContentLoaded);
+// document.addEventListener('DOMContentLoaded', handleContentLoaded);
+window.onload = onload;
