@@ -2,7 +2,7 @@
   "name": "soak",
   "version": "0.0.1",
   "permissions": [
-    "tabs", "http://*/*", "https://*/*", "experimental"
+    "tabs", "http://*/*", "https://*/*", "experimental", "storage"
   ],
   "background": {
     "scripts": ["lib/background.js"]
