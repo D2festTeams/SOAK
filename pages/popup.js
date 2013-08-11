@@ -60,5 +60,4 @@ function onload() {
   chrome.extension.sendMessage({type:'REQ_SCRIPT_LIST'}, handleResponse);
 }
 
-// document.addEventListener('DOMContentLoaded', handleContentLoaded);
-window.onload = onload;
+document.addEventListener('DOMContentLoaded', onload);
