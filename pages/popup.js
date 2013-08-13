@@ -1,4 +1,5 @@
 var scripts;
+var httpRegex = /^(http\:\/\/|https\:\/\/)/;
 
 function tabCallback(scriptInfo) {
   return function(tabs) {
