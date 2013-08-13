@@ -1,6 +1,6 @@
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  overflow: hidden;
+  overflow: auto;
   margin: 0px;
   padding: 0px;
   background: white;
@@ -12,24 +12,30 @@ div.item:first-child {
 
 div.item {
   cursor: pointer;
-  padding: 3px 8px;
+  padding: 3px;
   width: 150px;
   font-size: 0.8em;
   margin-top: 1px;
   border: 1px solid #eeeeee
 }
 
-div.soakbararea {
+.soakbar-area {
   display:block;
-  padding: 3px 8px;
   background-color: #f1f1f1;
 }
 
-input.soakbar {
-  width: 90%;
+.soakbar-ctl {
+  width: 150px;
   padding: 3px 3px;
+}
+
+.soakbar-input {
   border: 1px solid #e8e8e8;
   outline: none;
+}
+
+.soakbar-btn {
+  display:none;
 }
 
 div.item:hover {
