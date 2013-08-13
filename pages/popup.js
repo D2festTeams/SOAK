@@ -71,7 +71,29 @@ function requestScriptList() {
   chrome.extension.sendMessage({type:'REQ_SCRIPT_LIST'}, handleResponse);
 }
 
+function initSoakControl() {
+  var input = document.getElementById('query');
+  var btn   = document.getElementsByClassName('soak-btn')[0];
+  input.addEventListener('keyup', function(e) {
+    var value = e.target.value;
+    if (e.keyCode === 13 && value) {
+      // TODO: search or add url
+    }
+    var result = httpRegex.exec(value);
+
+    if (result) {
+      btn.style.display = 'block';
+    } else {
+      btn.style.display = 'none';
+    }
+  });
+  btn.addEventListener('click', function(e) {
+    // TODO: add script
+  });
+}
+
 function onLoad() {
+  initSoakControl();
   requestScriptList();
   chrome.extension.onMessage.addListener(handleResponse);
 }
