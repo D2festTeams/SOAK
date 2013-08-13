@@ -19,22 +19,22 @@ div.item {
   border: 1px solid #eeeeee
 }
 
-.soakbar-area {
+.soak-area {
   display:block;
   background-color: #f1f1f1;
 }
 
-.soakbar-ctl {
+.soak-ctl {
   width: 150px;
   padding: 3px 3px;
 }
 
-.soakbar-input {
+.soak-input {
   border: 1px solid #e8e8e8;
   outline: none;
 }
 
-.soakbar-btn {
+.soak-btn {
   display:none;
 }
 
