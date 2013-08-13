@@ -13,7 +13,7 @@ function tabCallback(scriptInfo) {
 function convertDepends(scriptInfo) {
   if (!scriptInfo.depends) return scriptInfo;
 
-  var result = /(http\:\/\/|https\:\/\/)/.exec(scriptInfo.depends);
+  var result = httpRegex.exec(scriptInfo.depends);
 
   if (result) return scriptInfo;
 
