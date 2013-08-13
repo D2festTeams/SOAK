@@ -34,18 +34,12 @@ function handleEvent(e) {
   chrome.tabs.query({active:true, currentWindow:true}, tabCallback(scriptInfo));
 }
 
-function handleResponse(res) {
-  console.log('received : ' + res.type);
-
-  // TODO: merge scripts & res.scripts
-  scripts = res.scripts;
-
+function updateScriptList() {
   var container  = document.querySelector('.container');
-  var firstChild = container.firstChild;
   // TODO: we don't need to clear every child(compare & remove)
-  while (firstChild) container.removeChild(firstChild);
+  while (container.firstChild) container.removeChild(container.firstChild);
 
-  for(var i = 0 ; i < res.scripts.length ; i++) {
+  for(var i = 0 ; i < scripts.length ; i++) {
     var div = document.createElement('div');
     div.classList.add('item');
     div.innerHTML = scripts[i].name;
@@ -55,9 +49,30 @@ function handleResponse(res) {
   }
 }
 
-function onLoad() {
+function handleResponse(res) {
+  console.log('received : ' + res.type);
+
+  switch(res.type) {
+    case 'REQ_SCRIPT_LIST':
+      // TODO: merge scripts & res.scripts
+      scripts = res.scripts;
+      updateScriptList();
+      break;
+    case 'DATA_CHANGED':
+      console.log('data changed');
+      requestScriptList();
+      break;
+  }
+}
+
+function requestScriptList() {
   // send msg to background.js
   chrome.extension.sendMessage({type:'REQ_SCRIPT_LIST'}, handleResponse);
+}
+
+function onLoad() {
+  requestScriptList();
+  chrome.extension.onMessage.addListener(handleResponse);
 }
 
 window.onload = onLoad;
