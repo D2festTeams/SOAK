@@ -35,15 +35,15 @@ function handleEvent(e) {
   chrome.tabs.query({active:true, currentWindow:true}, tabCallback(scriptInfo));
 }
 
-function updateScriptList() {
+function updateScriptList(data) {
   var container  = document.querySelector('.container');
   // TODO: we don't need to clear every child(compare & remove)
   while (container.firstChild) container.removeChild(container.firstChild);
 
-  for(var i = 0 ; i < scripts.length ; i++) {
+  for(var i = 0 ; i < data.length ; i++) {
     var div = document.createElement('div');
     div.classList.add('item');
-    div.innerHTML = scripts[i].name;
+    div.innerHTML = data[i].name;
     div.setAttribute('data-index', i);
     div.addEventListener('click', handleEvent);
     container.appendChild(div);
@@ -74,23 +74,41 @@ function requestScriptList() {
   chrome.extension.sendMessage({type:'REQ_SCRIPT_LIST'}, handleResponse);
 }
 
+function filterData(query) {
+  var result = _scripts.filter(function(item) {
+    var q = query.toLowerCase();
+    var i = item.name.toLowerCase();
+    return i.indexOf(q) > -1;
+  });
+  updateScriptList(result);
+}
+
 function initPopup() {
   var input = document.getElementById('soak-query');
   var name  = document.getElementById('soak-name');
   var btn   = document.getElementsByClassName('soak-btn')[0];
-  input.addEventListener('keyup', function(e) {
-    var value = e.target.value;
-    if (e.keyCode === 13 && value) {
-      // TODO: search or add url
-    }
-    var result = httpRegex.exec(value);
-
-    if (result) {
+  var toggleQuery = function (show) {
+    if (show) {
       btn .style.display = 'block';
       name.style.display = 'block';
     } else {
       btn .style.display = 'none';
       name.style.display = 'none';
+    }
+  }
+
+  input.addEventListener('keyup', function(e) {
+    var value = e.target.value;
+    if (e.keyCode === 13 && value) {
+      // TODO: search or add url
+      return;
+    }
+    if (value.length < 5) {
+      toggleQuery(false);
+      filterData(value);
+    } else {
+      var result = _httpRegex.exec(value);
+      toggleQuery(result);
     }
   });
   btn.addEventListener('click', function(e) {
