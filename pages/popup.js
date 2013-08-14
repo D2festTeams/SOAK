@@ -95,6 +95,14 @@ function initPopup() {
   });
   btn.addEventListener('click', function(e) {
     // TODO: add script
+    if (input.value && name.value) {
+      var data = {};
+      data.name = name.value;
+      data.url  = input.value;
+      chrome.extension.sendMessage({type:'SCRIPT_ADDED', data:data}, handleResponse);
+      input.value = '';
+      name.value  = '';
+    }
   });
 }
 
