@@ -72,7 +72,8 @@ function requestScriptList() {
 }
 
 function initSoakControl() {
-  var input = document.getElementById('query');
+  var input = document.getElementById('soak-query');
+  var name  = document.getElementById('soak-name');
   var btn   = document.getElementsByClassName('soak-btn')[0];
   input.addEventListener('keyup', function(e) {
     var value = e.target.value;
@@ -82,9 +83,11 @@ function initSoakControl() {
     var result = httpRegex.exec(value);
 
     if (result) {
-      btn.style.display = 'block';
+      btn .style.display = 'block';
+      name.style.display = 'block';
     } else {
-      btn.style.display = 'none';
+      btn .style.display = 'none';
+      name.style.display = 'none';
     }
   });
   btn.addEventListener('click', function(e) {
