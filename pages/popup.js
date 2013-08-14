@@ -71,7 +71,7 @@ function requestScriptList() {
   chrome.extension.sendMessage({type:'REQ_SCRIPT_LIST'}, handleResponse);
 }
 
-function initSoakControl() {
+function initPopup() {
   var input = document.getElementById('soak-query');
   var name  = document.getElementById('soak-name');
   var btn   = document.getElementsByClassName('soak-btn')[0];
@@ -96,7 +96,7 @@ function initSoakControl() {
 }
 
 function onLoad() {
-  initSoakControl();
+  initPopup();
   requestScriptList();
   chrome.extension.onMessage.addListener(handleResponse);
 }
