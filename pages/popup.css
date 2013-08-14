@@ -41,3 +41,7 @@ div.item {
 div.item:hover {
   background: #eeeeee;
 }
+
+#soak-name {
+  display:none;
+}
