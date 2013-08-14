@@ -63,6 +63,9 @@ function handleResponse(res) {
       console.log('data changed');
       requestScriptList();
       break;
+    case 'SCRIPT_ADDED':
+      console.err('we already have this url!!!');
+      break;
   }
 }
 
