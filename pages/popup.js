@@ -1,5 +1,5 @@
-var scripts;
-var httpRegex = /^(http\:\/\/|https\:\/\/)/;
+var _scripts;
+var _httpRegex = /^(http\:\/\/|https\:\/\/)/;
 
 function tabCallback(scriptInfo) {
   return function(tabs) {
@@ -13,13 +13,13 @@ function tabCallback(scriptInfo) {
 function convertDepends(scriptInfo) {
   if (!scriptInfo.depends) return scriptInfo;
 
-  var result = httpRegex.exec(scriptInfo.depends);
+  var result = _httpRegex.exec(scriptInfo.depends);
 
   if (result) return scriptInfo;
 
-  for(var s in scripts) {
-    if (scripts[s].name === scriptInfo.depends) {
-      scriptInfo.depends = scripts[s].url;
+  for(var s in _scripts) {
+    if (_scripts[s].name === scriptInfo.depends) {
+      scriptInfo.depends = _scripts[s].url;
       break;
     }
     delete scriptInfo.depends;
@@ -30,7 +30,7 @@ function convertDepends(scriptInfo) {
 function handleEvent(e) {
   console.log('click on : ' + e.currentTarget.dataset.index);
   var selected = e.currentTarget.dataset.index;
-  var scriptInfo = convertDepends(scripts[selected]);
+  var scriptInfo = convertDepends(_scripts[selected]);
   // check depends and convert to url
   chrome.tabs.query({active:true, currentWindow:true}, tabCallback(scriptInfo));
 }
@@ -56,8 +56,8 @@ function handleResponse(res) {
   switch(res.type) {
     case 'REQ_SCRIPT_LIST':
       // TODO: merge scripts & res.scripts
-      scripts = res.scripts;
-      updateScriptList();
+      _scripts = res.scripts;
+      updateScriptList(_scripts);
       break;
     case 'DATA_CHANGED':
       console.log('data changed');
