@@ -120,6 +120,7 @@ function initPopup() {
       chrome.extension.sendMessage({type:'SCRIPT_ADDED', data:data}, handleResponse);
       input.value = '';
       name.value  = '';
+      toggleQuery(false);
     }
   });
 }
