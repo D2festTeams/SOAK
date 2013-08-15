@@ -4,7 +4,7 @@ function onLoaded() {
     console.log('received : ' + msg.type);
     // find injected script tag & focus in devtools
     chrome.devtools.inspectedWindow.eval(
-      "inspect($$('head script:last-child')[0])",
+      "inspect($$('head script[data-soak=main]')[0])",
       function(result, isException) { }
     );
   });
