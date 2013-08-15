@@ -136,7 +136,7 @@ function onLoad() {
     } else {
       var area    = document.getElementsByClassName('soak-area')[0];
       var invalid = document.getElementsByClassName('invalid-url')[0];
-      area   .style.display = 'none';
+      // area   .style.display = 'none';
       invalid.style.display = 'block';
     }
   });

@@ -1,22 +1,28 @@
 {
+
   "name": "soak",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "permissions": [
     "tabs", "http://*/*", "https://*/*", "experimental", "storage"
   ],
+
   "background": {
     "scripts": ["lib/background.js"]
   },
+
   "content_scripts": [{
     "js": ["lib/content.js"],
     "matches": ["*://*/*"],
     "run_at": "document_end"
   }],
+
   "devtools_page": "pages/devtools.html",
   "browser_action": {
     "default_title": "soack some scripts",
-    "default_icon": "img/icon.png",
+    "default_icon": "img/icon128.png",
     "default_popup": "pages/popup.html"
    },
+
   "manifest_version": 2
+
 }
