@@ -48,3 +48,10 @@ div.item:hover {
 #soak-name {
   display:none;
 }
+
+.invalid-url {
+  display:none;
+  width: 150px;
+  padding: 5px;
+  text-align: center;
+}

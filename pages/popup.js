@@ -126,9 +126,20 @@ function initPopup() {
 }
 
 function onLoad() {
-  initPopup();
-  requestScriptList();
-  chrome.extension.onMessage.addListener(handleResponse);
+  // FIXME: we can put every function in this file into this callback.
+  chrome.tabs.query({active:true, currentWindow:true}, function(tabs) {
+    var result = _httpRegex.exec(tabs[0].url);
+    if (result) {
+      initPopup();
+      requestScriptList();
+      chrome.extension.onMessage.addListener(handleResponse);
+    } else {
+      var area    = document.getElementsByClassName('soak-area')[0];
+      var invalid = document.getElementsByClassName('invalid-url')[0];
+      area   .style.display = 'none';
+      invalid.style.display = 'block';
+    }
+  });
 }
 
 window.onload = onLoad;
