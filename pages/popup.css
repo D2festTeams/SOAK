@@ -1,9 +1,22 @@
+/* Reset HTML5 Elements */
+header, section, footer, aside, nav, body, ul, li{
+  margin: 0;
+  left: 0;
+  padding: 0;
+  display: block;
+}
+
+/* Reset list Elements */
+ul, dl, ol{
+  list-style: none;
+  display: block;
+}
+
+
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Cantarell', sans-serif;
+  font-weight: 400;
   overflow: auto;
-  margin: 0px;
-  padding: 0px;
-  background: white;
 }
 
 div.item:first-child {
@@ -55,3 +68,33 @@ div.item:hover {
   padding: 5px;
   text-align: center;
 }
+
+/* iMaZiNe Section ---------------------------------------------- */
+
+  /* Library Select Box */ 
+  .librarySelectBox{
+    width: 320px;
+    color: #fff;
+  }
+
+  .librarySelectBox li{
+    margin: 0 1px 1px 1px;
+    width: 100%;
+    padding: 20px 10px;
+    background-color: rgba( 180, 180, 180, 0.4 );
+  }
+
+    .librarySelectBox .msgBox{
+      background-color: rgba( 180, 10, 10, 0.4);
+      text-align: center;
+    }
+
+  /* Background Cloud Image */
+  .cloudImage{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    -webkit-filter: blur(12px);
+    z-index: -1;
+  }
