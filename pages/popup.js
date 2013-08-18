@@ -1,5 +1,65 @@
-var _scripts;
-var _httpRegex = /^(http\:\/\/|https\:\/\/)/;
+var _scripts,
+    _libArray = [],
+    _httpRegex = /^(http\:\/\/|https\:\/\/)/;
+
+var mockupData = [
+  {
+    name : 'jQuery 1.4.2',
+    url : 'https://fdsafdsafdsafd'
+  },
+  {
+    name : 'jQuery 1.5.2',
+    url : 'https://fdsafdsafdsafd'
+  },
+  {
+    name : 'jQuery 1.6.2',
+    url : 'https://fdsafdsafdsafd'
+  },
+  {
+    name : 'jQuery 1.7.2',
+    url : 'https://fdsafdsafdsafd'
+  },
+  {
+    name : 'jQuery 1.8.2',
+    url : 'https://fdsafdsafdsafd'
+  },
+  {
+    name : 'jQuery 1.9.2',
+    url : 'https://fdsafdsafdsafd'
+  },
+  {
+    name : 'jqMobi',
+    url : 'https://fdsafdsafdsafd'
+  }
+];
+
+function addClass( element, className ){
+  element.setAttribute('class', element.getAttribute('class') + ' ' +  className);
+}
+
+function removeClass( element, className ){
+  element.setAttribute('class', element.getAttribute('class').replace(className, '').trim());
+}
+
+function toggle( bool ){
+  return bool ? false : true;
+}
+
+function slideSwitch( element ){
+  element.slider = element.slider || getElem('p', element)[0];
+  if (element.status = toggle(element.status)){
+    addClass(element.slider, 'selected');
+    return true;
+  }else{
+    removeClass(element.slider, 'selected');
+    return false;
+  }
+}
+
+function getElem( query, obj ){
+  if (obj) return obj.getElementsByTagName(query);
+  return document.getElementById(query);
+}
 
 function tabCallback(scriptInfo) {
   return function(tabs) {
@@ -84,9 +144,16 @@ function filterData(query) {
 }
 
 function initPopup() {
-  var input = document.getElementById('soak-query');
-  var name  = document.getElementById('soak-name');
-  var btn   = document.getElementsByClassName('soak-btn')[0];
+  var input = getElem('soak-query'),
+      name  = getElem('soak-name'),
+      libraryList = getElem('libraryList'),
+      addButton = getElem('addButton'),
+      removeButton = getElem('removeButton'),
+      injectButton = getElem('injectButton'),
+      autoSwitch = getElem('autoSwitch');
+      autoSwitch.myButton = getElem('p', autoSwitch)[0];
+      btn   = document.getElementsByClassName('soak-btn')[0];
+
   var toggleQuery = function (show) {
     if (show) {
       btn .style.display = 'block';
@@ -111,6 +178,25 @@ function initPopup() {
       toggleQuery(result);
     }
   });
+
+
+  addButton.addEventListener('click', function(){
+    // do something
+  });
+
+  removeButton.addEventListener('click', function(){
+    if(confirm(' Delete selected libraries ?')){} // do something
+  });
+
+  injectButton.addEventListener('click', function(){
+    // build checked array
+    // inject
+  });
+
+  autoSwitch.addEventListener('click', function(){
+    if(slideSwitch(this)){}; // do something
+  });
+
   btn.addEventListener('click', function(e) {
     // TODO: add script
     if (input.value && name.value) {
@@ -123,6 +209,20 @@ function initPopup() {
       toggleQuery(false);
     }
   });
+
+  // JUST TEST CODE !!!!!!!!!!!!!!!
+  var tempArray = getElem('li', libraryList),
+      i = 0, 
+      l = tempArray.length;
+      for( ; i < l; i++ ){
+        tempArray[i].myButton = getElem('p', tempArray[i])[0];
+        tempArray[i].addEventListener('click', function(){
+          if(slideSwitch(this) && autoSwitch.status){
+            console.log('inject!!');
+          }
+        });
+      }
+
 }
 
 function onLoad() {
@@ -134,7 +234,7 @@ function onLoad() {
       requestScriptList();
       chrome.extension.onMessage.addListener(handleResponse);
     } else {
-      var area    = document.getElementsByClassName('soak-area')[0];
+      // var area    = document.getElementsByClassName('soak-area')[0];
       var invalid = document.getElementsByClassName('invalid-url')[0];
       // area   .style.display = 'none';
       invalid.style.display = 'block';

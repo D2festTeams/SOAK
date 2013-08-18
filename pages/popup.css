@@ -88,13 +88,6 @@ div.item:hover {
   display:none;
 }
 
-.invalid-url {
-  display:none;
-  width: 150px;
-  padding: 5px;
-  text-align: center;
-}
-
 /* iMaZiNe Section ---------------------------------------------- */
   /* SOAK Query Input Box */
   #soak-query{
@@ -165,9 +158,10 @@ div.item:hover {
       left: 23px;
     }
 
-    .librarySelectBox .msgBox{
-      background-color: rgba( 180, 10, 10, 0.2 );
+    .librarySelectBox .invalid-url{
+      background-color: rgba( 180, 0, 0, 0.2 );
       text-align: center;
+      display: none;
     }
 
   /* Background Cloud Image */
@@ -191,11 +185,13 @@ div.item:hover {
 
   /* Bottom Navigator */
   nav{
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
     color: rgba( 255, 255, 255, 0.4 );
   }
 
   nav ul{
+    position: relative;
+    top: -5px;
     display: inline-block;
   }
 
@@ -222,24 +218,21 @@ div.item:hover {
       display: block;
       padding: 12px 0;
       width: 40px;
-      margin: 10px auto;
-      border: 1px solid rgba( 255, 255, 255, 0.4 );
+      margin: 10px auto 4px;
+      border: 1px solid #fff;
+      color: #fff;
       border-radius: 100px;
       -webkit-font-smoothing: antialiased;
     }
 
-    nav li:hover:before, nav .on:before{
+    nav li:hover:before{
       border-color: #fff;
-    }
-
-    nav .on{
-      color: #fff;
     }
 
     nav .slideButton{
       float: none;
       text-align: left;
-      margin: 16px;
+      margin: 13px;
     }
 
     .icon-add:before{
