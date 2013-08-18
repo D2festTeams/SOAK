@@ -1,8 +1,20 @@
+@font-face{
+  font-family: 'Cantarell';
+  src: url('../font/Cantarell-Regular.ttf');
+}
+
+@font-face{
+  font-family: 'icons';
+  src: url('../font/icons.ttf');
+}
+
+
 /* Reset HTML5 Elements */
 header, section, footer, aside, nav, body, ul, li{
   margin: 0;
   left: 0;
   padding: 0;
+  border: 0;
   display: block;
 }
 
@@ -10,13 +22,27 @@ header, section, footer, aside, nav, body, ul, li{
 ul, dl, ol{
   list-style: none;
   display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+input:focus{
+  outline: none;
+}
+
+li:hover{
+  cursor: hand;
+  pointer: hand;
 }
 
 
 body {
-  font-family: 'Cantarell', sans-serif;
-  font-weight: 400;
-  overflow: auto;
+  font-family: 'icons', 'Cantarell';
+  font-size: 12px;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba( 0, 0, 0, 0.3 );
+  background-color: #134272;
 }
 
 div.item:first-child {
@@ -70,22 +96,77 @@ div.item:hover {
 }
 
 /* iMaZiNe Section ---------------------------------------------- */
+  /* SOAK Query Input Box */
+  #soak-query{
+    width: 220px;
+    height: 26px;
+    margin: 22px 40px;
+    border: 0;
+    padding: 0 10px;
+    border: 4px solid rgba( 255, 255, 255, 0.3 );
+    border-radius: 16px;
+    background-color: rgba( 160, 160, 160, 0.26 );
+    font-size: 18px;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba( 0, 0, 0, 0.3 );
+  }
 
   /* Library Select Box */ 
   .librarySelectBox{
     width: 320px;
-    color: #fff;
   }
 
   .librarySelectBox li{
-    margin: 0 1px 1px 1px;
-    width: 100%;
-    padding: 20px 10px;
-    background-color: rgba( 180, 180, 180, 0.4 );
+    margin: 0 0 1px;
+    width: 280px;
+    padding: 12px 20px;
+    background-color: rgba( 160, 160, 160, 0.26 );
   }
 
+    .librarySelectBox li:hover{
+      background-color: rgba( 63, 169, 245, 0.7 )
+    }
+
+    .librarySelectBox li:before{
+      content: attr(data-libName);
+    }
+
+    .slideButton{
+      content: '';
+      width: 50px;
+      height: 30px;
+      border-radius: 22px;
+      float: right;
+      display: inline-block;
+      background-color: rgba( 255, 255, 255, 0.5 );
+      margin-top: -4px;
+      -webkit-transition: all 0.3s ease;
+    }
+
+    .slideButton:after{
+      position: relative;
+      content: '';
+      top: 2px;
+      left: 2px;
+      width: 26px;
+      height: 26px;
+      display: inline-block;
+      border-radius: 26px;
+      background-color: #fff;
+      -webkit-transition: all 0.3s ease;
+      box-shadow: 1px 2px 4px rgba( 0, 0, 0, 0.1 );
+    }
+
+    .selected{
+      background-color: #3fa9f5;
+    }
+
+    .selected:after{
+      left: 23px;
+    }
+
     .librarySelectBox .msgBox{
-      background-color: rgba( 180, 10, 10, 0.4);
+      background-color: rgba( 180, 10, 10, 0.2 );
       text-align: center;
     }
 
@@ -94,7 +175,77 @@ div.item:hover {
     position: absolute;
     top: 0;
     left: 0;
+    margin: 0;
+    padding: 0;
     width: 100%;
-    -webkit-filter: blur(12px);
+    -webkit-filter: blur(6px);
     z-index: -1;
   }
+
+  .cloudImage img{
+    width: 320px;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  /* Bottom Navigator */
+  nav{
+    margin-bottom: 20px;
+    color: rgba( 255, 255, 255, 0.4 );
+  }
+
+  nav ul{
+    display: inline-block;
+  }
+
+    nav li{
+      padding-bottom: 10px;
+      width: 79px;
+      margin-right: -2px;
+      text-align: center;
+      display: inline-block;
+      background-color: rgba( 160, 160, 160, 0.26 );
+    }
+
+    nav li:hover{
+      background-color: rgba( 63, 169, 245, 0.7 );
+      color: #fff;
+    }
+
+    nav li:before{
+      font-family: 'icons';
+      font-size: 16px;
+      text-transform: none;
+      text-shadow: none;
+      line-height: 1;
+      display: block;
+      padding: 12px 0;
+      width: 40px;
+      margin: 10px auto;
+      border: 1px solid rgba( 255, 255, 255, 0.4 );
+      border-radius: 100px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav li:hover:before, nav .on{
+      border-color: #fff;
+    }
+
+    nav .slideButton{
+      float: none;
+      text-align: left;
+      margin: 16px;
+    }
+
+    .icon-add:before{
+      content: '\e002';
+    }
+
+    .icon-remove:before{
+      content: '\e001';
+    }
+
+    .icon-inject:before{
+      content: '\e000';
+    }
