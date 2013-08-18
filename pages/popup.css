@@ -191,7 +191,7 @@ div.item:hover {
 
   /* Bottom Navigator */
   nav{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: rgba( 255, 255, 255, 0.4 );
   }
 
@@ -228,8 +228,12 @@ div.item:hover {
       -webkit-font-smoothing: antialiased;
     }
 
-    nav li:hover:before, nav .on{
+    nav li:hover:before, nav .on:before{
       border-color: #fff;
+    }
+
+    nav .on{
+      color: #fff;
     }
 
     nav .slideButton{
