@@ -209,20 +209,6 @@ function initPopup() {
       toggleQuery(false);
     }
   });
-
-  // JUST TEST CODE !!!!!!!!!!!!!!!
-  var tempArray = getElem('li', libraryList),
-      i = 0, 
-      l = tempArray.length;
-      for( ; i < l; i++ ){
-        tempArray[i].myButton = getElem('p', tempArray[i])[0];
-        tempArray[i].addEventListener('click', function(){
-          if(slideSwitch(this) && autoSwitch.status){
-            console.log('inject!!');
-          }
-        });
-      }
-
 }
 
 function onLoad() {
