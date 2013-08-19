@@ -72,6 +72,9 @@ function handleEvent(e) {
   var selected = e.currentTarget.dataset.index;
   // var scriptInfo = convertDepends(_scripts[selected]);
   var scriptInfo = checkLibraryList();
+  scriptInfo.filter(function(item) {
+    return convertDepends(item);
+  });
   // check depends and convert to url
   if(autoSwitch.status) callBackground(scriptInfo);
 }
