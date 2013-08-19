@@ -56,6 +56,16 @@ function slideSwitch( element ){
   }
 }
 
+function initSwitch() {
+  var lis = getElem('libraryList').children;
+  for(var i = 0 ; i < lis.length ; i++) {
+    var el = lis[i];
+    el.slider = el.slider || getElem('p', el)[0]; 
+    el.status = false;
+    removeClass(el.slider, 'selected');
+  }
+}
+
 function getElem( query, obj ){
   if (obj) return obj.getElementsByTagName(query);
   return document.getElementById(query);
