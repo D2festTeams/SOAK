@@ -1,37 +1,6 @@
 var _scripts,
-    _libArray = [],
+    _elemArray = [],
     _httpRegex = /^(http\:\/\/|https\:\/\/)/;
-
-var mockupData = [
-  {
-    name : 'jQuery 1.4.2',
-    url : 'https://fdsafdsafdsafd'
-  },
-  {
-    name : 'jQuery 1.5.2',
-    url : 'https://fdsafdsafdsafd'
-  },
-  {
-    name : 'jQuery 1.6.2',
-    url : 'https://fdsafdsafdsafd'
-  },
-  {
-    name : 'jQuery 1.7.2',
-    url : 'https://fdsafdsafdsafd'
-  },
-  {
-    name : 'jQuery 1.8.2',
-    url : 'https://fdsafdsafdsafd'
-  },
-  {
-    name : 'jQuery 1.9.2',
-    url : 'https://fdsafdsafdsafd'
-  },
-  {
-    name : 'jqMobi',
-    url : 'https://fdsafdsafdsafd'
-  }
-];
 
 function addClass( element, className ){
   element.setAttribute('class', element.getAttribute('class') + ' ' +  className);
@@ -101,8 +70,23 @@ function handleEvent(e) {
   slideSwitch(this);
   console.log('click on : ' + e.currentTarget.dataset.index);
   var selected = e.currentTarget.dataset.index;
-  var scriptInfo = convertDepends(_scripts[selected]);
+  // var scriptInfo = convertDepends(_scripts[selected]);
+  var scriptInfo = checkLibraryList();
   // check depends and convert to url
+  if(autoSwitch.status) callBackground(scriptInfo);
+}
+
+function checkLibraryList() {
+  var returnArray = [],
+      i = 0,
+      l = _elemArray.length;
+  for (; i < l; i++ ){
+    if(_elemArray[i].status) returnArray.push(_scripts[i]);
+  }
+  return returnArray;
+}
+
+function callBackground( scriptInfo ){
   chrome.tabs.query({active:true, currentWindow:true}, tabCallback(scriptInfo));
 }
 
@@ -119,7 +103,8 @@ function updateScriptList(data) {
     li.setAttribute('data-libName', data[i].name);
     li.setAttribute('data-index', i);
     li.addEventListener('click', handleEvent);
-    ul.appendChild(li);
+    ul.appendChild(_elemArray[i] = li);
+    _elemArray[i].indexNumber = i;
   }
 }
 
@@ -202,8 +187,7 @@ function initPopup() {
   });
 
   injectButton.addEventListener('click', function(){
-    // build checked array
-    // inject
+    callBackground(checkLibraryList());
   });
 
   autoSwitch.addEventListener('click', function(){
