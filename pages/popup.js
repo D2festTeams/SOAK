@@ -88,6 +88,7 @@ function convertDepends(scriptInfo) {
 }
 
 function handleEvent(e) {
+  slideSwitch(this);
   console.log('click on : ' + e.currentTarget.dataset.index);
   var selected = e.currentTarget.dataset.index;
   var scriptInfo = convertDepends(_scripts[selected]);
@@ -96,17 +97,19 @@ function handleEvent(e) {
 }
 
 function updateScriptList(data) {
-  var container  = document.querySelector('.container');
+  var ul = document.getElementById('libraryList');
   // TODO: we don't need to clear every child(compare & remove)
-  while (container.firstChild) container.removeChild(container.firstChild);
+  while (ul.firstChild) ul.removeChild(ul.firstChild);
 
   for(var i = 0 ; i < data.length ; i++) {
-    var div = document.createElement('div');
-    div.classList.add('item');
-    div.innerHTML = data[i].name;
-    div.setAttribute('data-index', i);
-    div.addEventListener('click', handleEvent);
-    container.appendChild(div);
+    var li = document.createElement('li');
+    var p  = document.createElement('p');
+    p.classList.add('slideButton');
+    li.appendChild(p);
+    li.setAttribute('data-libName', data[i].name);
+    li.setAttribute('data-index', i);
+    li.addEventListener('click', handleEvent);
+    ul.appendChild(li);
   }
 }
 
