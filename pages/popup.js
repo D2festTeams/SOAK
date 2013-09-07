@@ -43,9 +43,9 @@ function getElem( query, obj ){
 function tabCallback(scriptInfo) {
   return function(tabs) {
     // save selected script info to "background.js"
-    chrome.extension.sendMessage({type:'SCRIPT_SELECTED', data:scriptInfo, tab:tabs[0].id});
+    chrome.extension.sendMessage({type:'INJECT_LIST', data:scriptInfo, tab:tabs[0].id});
     // request reload current page to "content.js"
-    chrome.tabs.sendMessage(tabs[0].id, {type:'SCRIPT_SELECTED'});
+    chrome.tabs.sendMessage(tabs[0].id, {type:'INJECT_LIST'});
   }
 }
 
@@ -124,7 +124,7 @@ function handleResponse(res) {
       console.log('data changed');
       requestScriptList();
       break;
-    case 'SCRIPT_ADDED':
+    case 'ADD_LIST':
       console.err('we already have this url!!!');
       break;
   }
@@ -203,7 +203,7 @@ function initPopup() {
       var data = {};
       data.name = name.value;
       data.url  = input.value;
-      chrome.extension.sendMessage({type:'SCRIPT_ADDED', data:data}, handleResponse);
+      chrome.extension.sendMessage({type:'ADD_LIST', data:data}, handleResponse);
       input.value = '';
       name.value  = '';
       toggleQuery(false);
