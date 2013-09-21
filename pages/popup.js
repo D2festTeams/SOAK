@@ -117,7 +117,7 @@ function handleResponse(res) {
   switch(res.type) {
     case 'REQ_SCRIPT_LIST':
       // TODO: merge scripts & res.scripts
-      _scripts = res.scripts;
+      _scripts = res.listArray;
       updateScriptList(_scripts);
       break;
     case 'DATA_CHANGED':
