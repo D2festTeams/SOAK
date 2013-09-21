@@ -2,27 +2,16 @@ var _scripts,
     _elemArray = [],
     _httpRegex = /^(http\:\/\/|https\:\/\/)/;
 
-function addClass( element, className ){
-  element.setAttribute('class', element.getAttribute('class') + ' ' +  className);
-}
+// function addClass( element, className )
+//   element.setAttribute('class', element.getAttribute('class') + ' ' +  className);
+// }
 
-function removeClass( element, className ){
-  element.setAttribute('class', element.getAttribute('class').replace(className, '').trim());
-}
+// function removeClass( element, className ){
+//   element.setAttribute('class', element.getAttribute('class').replace(className, '').trim());
+// }
 
 function toggle( bool ){
   return bool ? false : true;
-}
-
-function slideSwitch( element ){
-  element.slider = element.slider || getElem('p', element)[0];
-  if (element.status = toggle(element.status)){
-    addClass(element.slider, 'selected');
-    return true;
-  }else{
-    removeClass(element.slider, 'selected');
-    return false;
-  }
 }
 
 function initSwitch() {
@@ -66,19 +55,6 @@ function convertDepends(scriptInfo) {
   return scriptInfo;
 }
 
-function handleEvent(e) {
-  slideSwitch(this);
-  console.log('click on : ' + e.currentTarget.dataset.index);
-  var selected = e.currentTarget.dataset.index;
-  // var scriptInfo = convertDepends(_scripts[selected]);
-  var scriptInfo = checkLibraryList();
-  scriptInfo.filter(function(item) {
-    return convertDepends(item);
-  });
-  // check depends and convert to url
-  if(autoSwitch.status) callBackground(scriptInfo);
-}
-
 function checkLibraryList() {
   var returnArray = [],
       i = 0,
@@ -101,15 +77,79 @@ function updateScriptList(data) {
   for(var i = 0 ; i < data.length ; i++) {
     var li = document.createElement('li');
     var p  = document.createElement('p');
+    var p2 = document.createElement('p');
     p.classList.add('slideButton');
+    p2.classList.add('icon-checkbox');
     li.appendChild(p);
+    li.appendChild(p2);
     li.setAttribute('data-libName', data[i].name);
     li.setAttribute('data-index', i);
     li.addEventListener('click', handleEvent);
     ul.appendChild(_elemArray[i] = li);
+    _elemArray[i].slider = p;
+    _elemArray[i].checkbox = p2;
     _elemArray[i].indexNumber = i;
   }
+  autoSwitchUpdate();
 }
+
+
+function handleEvent(e) {
+  slideSwitch(this);
+  console.log('click on : ' + e.currentTarget.dataset.index);
+  var selected = e.currentTarget.dataset.index;
+  // var scriptInfo = convertDepends(_scripts[selected]);
+  var scriptInfo = checkLibraryList();
+  scriptInfo.filter(function(item) {
+    return convertDepends(item);
+  });
+  // check depends and convert to url
+  if(autoSwitch.status) callBackground(scriptInfo);
+}
+
+
+function slideSwitch( element ){
+  element.slider = element.slider || getElem('p', element)[0];
+  element.checkbox = element.checkbox || getElem('p', element)[1];
+  if (element.status = toggle(element.status)){
+    element.slider.classList.add('selected');
+    if(element.checkbox){
+      element.checkbox.className = 'icon-checkedbox listCheckboxes';
+    }else{
+      autoSwitchUpdate(); 
+    }
+    return true;
+  }else{
+    element.slider.classList.remove('selected');
+    if(element.checkbox){
+      element.checkbox.className = 'icon-checkbox listCheckboxes';
+    }else{
+      autoSwitchUpdate();
+    }
+    return false;
+  }
+}
+
+function autoSwitchOFF(){
+  autoSwitch.status = true;
+  slideSwitch(autoSwitch);
+}
+
+function autoSwitchUpdate(){
+  var i = 0, 
+      l = _elemArray.length;
+  for(; i < l; ++i){
+    var elem = _elemArray[i];
+    if(autoSwitch.status){
+      elem.checkbox.style.display = 'none';
+      elem.slider.style.display = 'inline-block';
+    }else{
+      elem.slider.style.display = 'none';
+      elem.checkbox.style.display = 'inline-block';
+    }
+  }
+}
+
 
 function handleResponse(res) {
   console.log('received : ' + res.type);
@@ -154,7 +194,6 @@ function initPopup() {
       autoSwitch = getElem('autoSwitch');
       autoSwitch.myButton = getElem('p', autoSwitch)[0];
       btn   = document.getElementsByClassName('soak-btn')[0];
-
   var toggleQuery = function (show) {
     if (show) {
       btn .style.display = 'block';

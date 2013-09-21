@@ -5,17 +5,18 @@
 
 @font-face{
   font-family: 'icons';
-  src: url('../font/icons.ttf');
+  src: url('../font/icons2.ttf');
 }
 
 
 /* Reset HTML5 Elements */
-header, section, footer, aside, nav, body, ul, li{
+header, section, footer, aside, nav, body, ul, li, a{
   margin: 0;
   left: 0;
   padding: 0;
   border: 0;
   display: block;
+  outline: none;
 }
 
 /* Reset list Elements */
@@ -40,9 +41,11 @@ li:hover{
 body {
   font-family: 'icons', 'Cantarell';
   font-size: 12px;
+  width: 320px;
   color: #fff;
   text-shadow: 1px 1px 2px rgba( 0, 0, 0, 0.3 );
-  background-color: #134272;
+  /*background-color: #134272;*/
+  background: url('../img/noisyPattern.png') repeat;
 }
 
 div.item:first-child {
@@ -102,22 +105,43 @@ div.item:hover {
     font-size: 18px;
     color: #fff;
     text-shadow: 1px 1px 2px rgba( 0, 0, 0, 0.3 );
+    display: none;
   }
 
   /* Library Select Box */ 
   .librarySelectBox{
-    width: 320px;
+    width: 300px;
+    padding: 10px;
   }
+
+  /* Define Logo */
+  .logo{
+    display: block;
+    width: 60px;
+    margin: 10px auto;
+    padding: 0;
+  }
+
 
   .librarySelectBox li{
-    margin: 0 0 1px;
+    /*margin: 0 0 1px;*/
     width: 280px;
-    padding: 12px 20px;
-    background-color: rgba( 160, 160, 160, 0.4 );
+    padding: 12px 10px;
+    border-top: 1px solid #777;
+    border-bottom: 1px solid #555;
   }
 
+  .librarySelectBox li:first-child{
+    border-top: none;
+  }
+
+  .librarySelectBox li:last-child{
+    border-bottom: none;
+  }
+
+
     .librarySelectBox li:hover{
-      background-color: rgba( 63, 169, 245, 0.7 )
+      background-color: rgba( 63, 169, 245, 0.2 )
     }
 
     .librarySelectBox li:before{
@@ -191,7 +215,7 @@ div.item:hover {
 
   nav ul{
     position: relative;
-    top: -5px;
+    /*top: -5px;*/
     display: inline-block;
   }
 
@@ -201,7 +225,7 @@ div.item:hover {
       margin-right: -2px;
       text-align: center;
       display: inline-block;
-      background-color: rgba( 160, 160, 160, 0.4 );
+      background-color: rgba( 160, 160, 160, 0.26 );
     }
 
     nav li:hover{
@@ -244,5 +268,34 @@ div.item:hover {
     }
 
     .icon-inject:before{
-      content: '\e000';
+      content: '\e003';
+    }
+
+    .icon-edit:before{
+      content: '\e004';
+    }
+
+    .icon-search:before{
+      content: '\e007';
+    }
+
+    .icon-checkbox, .icon-checkedbox{
+      font-family: 'icons';
+      text-transform: none;
+      text-shadow: none;
+      line-height: 1;
+      display: block;
+      color: #fff;
+      float: right;
+      display: inline-block;
+      margin-top: 6px;
+    }
+
+    .icon-checkbox:before{
+      content: '\e006';
+    }
+
+    .icon-checkedbox:before{
+      color: #3fa9f5;
+      content: '\e005';
     }
