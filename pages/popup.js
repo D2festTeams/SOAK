@@ -2,14 +2,6 @@ var _scripts,
     _elemArray = [],
     _httpRegex = /^(http\:\/\/|https\:\/\/)/;
 
-// function addClass( element, className )
-//   element.setAttribute('class', element.getAttribute('class') + ' ' +  className);
-// }
-
-// function removeClass( element, className ){
-//   element.setAttribute('class', element.getAttribute('class').replace(className, '').trim());
-// }
-
 function toggle( bool ){
   return bool ? false : true;
 }
@@ -116,6 +108,8 @@ function slideSwitch( element ){
     if(element.checkbox){
       element.checkbox.className = 'icon-checkedbox listCheckboxes';
     }else{
+      searchBox.style.display = 'none';
+      editBox.style.display = 'none';
       autoSwitchUpdate(); 
     }
     return true;
@@ -158,6 +152,7 @@ function handleResponse(res) {
     case 'REQ_SCRIPT_LIST':
       // TODO: merge scripts & res.scripts
       _scripts = res.listArray;
+      console.table(_scripts);
       updateScriptList(_scripts);
       break;
     case 'DATA_CHANGED':
@@ -188,10 +183,16 @@ function initPopup() {
   var input = getElem('soak-query'),
       name  = getElem('soak-name'),
       libraryList = getElem('libraryList'),
+      searchBox = getElem('searchBox'),
+      editBox = getElem('editBox'),
       addButton = getElem('addButton'),
       removeButton = getElem('removeButton'),
       injectButton = getElem('injectButton'),
+      searchButton = getElem('searchButton'),
+      editButton = getElem('editButton'),
       autoSwitch = getElem('autoSwitch');
+      editButton.box = editBox;
+      searchButton.box = searchBox;
       autoSwitch.myButton = getElem('p', autoSwitch)[0];
       btn   = document.getElementsByClassName('soak-btn')[0];
   var toggleQuery = function (show) {
@@ -219,6 +220,14 @@ function initPopup() {
     }
   });
 
+
+  searchButton.addEventListener('click', function(){
+    toggleBoxes(this);
+  });
+
+  editButton.addEventListener('click', function(){
+    toggleBoxes(this);
+  });
 
   addButton.addEventListener('click', function(){
     // do something
@@ -250,6 +259,17 @@ function initPopup() {
   });
 }
 
+function toggleBoxes (elem) {
+  if(elem.status){
+    elem.box.style.display = 'none';
+  }else{
+    autoSwitchOFF();
+    searchBox.style.display = 'none';
+    editBox.style.display = 'none';
+    elem.box.style.display = 'block';
+  }
+}
+
 function onLoad() {
   // FIXME: we can put every function in this file into this callback.
   chrome.tabs.query({active:true, currentWindow:true}, function(tabs) {
@@ -259,9 +279,7 @@ function onLoad() {
       requestScriptList();
       chrome.extension.onMessage.addListener(handleResponse);
     } else {
-      // var area    = document.getElementsByClassName('soak-area')[0];
       var invalid = document.getElementsByClassName('invalid-url')[0];
-      // area   .style.display = 'none';
       invalid.style.display = 'block';
     }
   });

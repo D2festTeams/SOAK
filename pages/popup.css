@@ -92,21 +92,6 @@ div.item:hover {
 }
 
 /* iMaZiNe Section ---------------------------------------------- */
-  /* SOAK Query Input Box */
-  #soak-query{
-    width: 220px;
-    height: 26px;
-    margin: 22px 40px;
-    border: 0;
-    padding: 0 10px;
-    border: 4px solid rgba( 255, 255, 255, 0.3 );
-    border-radius: 16px;
-    background-color: rgba( 160, 160, 160, 0.4 );
-    font-size: 18px;
-    color: #fff;
-    text-shadow: 1px 1px 2px rgba( 0, 0, 0, 0.3 );
-    display: none;
-  }
 
   /* Library Select Box */ 
   .librarySelectBox{
@@ -296,6 +281,76 @@ div.item:hover {
     }
 
     .icon-checkedbox:before{
+      /*font-size: 16px;*/
       color: #3fa9f5;
       content: '\e005';
+    }
+
+  .soakButton{
+    font-size: 14px;
+    font-weight: 100;
+    padding: 16px 20px 14px;
+    border: 0;
+    background-color: #3fa9f5;
+    min-width: 80px;
+    text-align: center;
+    border-radius: 20px;
+    color: #bbe;
+  }
+
+  .soakButton:before{
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #bbe;
+    border-radius: 20px;
+  }
+
+  .soakButton:hover{
+    color: #fff;
+  }
+
+  .soakButton:hover:before{
+    border-color: #fff;
+  }
+
+  .soakInput{
+    display: block;
+    width: 260px;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 20px;
+    margin: 10px auto;
+  }
+
+  #searchBox{
+    margin: 20px 0 40px;
+    display: none;
+  }
+
+    .searchButton{
+      display: inline;
+      float: right;
+      padding: 6px 4px 4px;
+      background-color: #bbb;
+      border-radius: 10px;
+      margin-left: -20px;
+      position: relative;
+      top: -9px;
+      left: -24px;
+    }
+
+  #editBox{
+    display: none; 
+  }
+
+    #editBox ul{
+      margin: 0;
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+    }
+
+    #editBox li{
+      margin: 0 10px;
+      display: inline-block;
     }
