@@ -160,7 +160,7 @@ function handleResponse(res) {
       requestScriptList();
       break;
     case 'ADD_LIST':
-      console.err('we already have this url!!!');
+      console.error('we already have this url!!!');
       break;
   }
 }
