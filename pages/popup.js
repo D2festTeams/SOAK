@@ -24,11 +24,17 @@ function getElem( query, obj ){
 
 function tabCallback(scriptInfo) {
   return function(tabs) {
+    var tab = tabs[0];
+    var msg = {};
+    msg.type   = 'INJECT_LIST';
+    msg.data   = scriptInfo;
+    msg.tabID  = tab.id;
+    msg.tabURL = tab.url;
+
     // save selected script info to "background.js"
-    console.log(scriptInfo);
-    chrome.extension.sendMessage({type:'INJECT_LIST', data:scriptInfo, tab:tabs[0].id});
+    chrome.extension.sendMessage(msg);
     // request reload current page to "content.js"
-    chrome.tabs.sendMessage(tabs[0].id, {type:'INJECT_LIST'});
+    chrome.tabs.sendMessage(tab.id, {type:'INJECT_LIST'});
   }
 }
 
