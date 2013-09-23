@@ -7,7 +7,7 @@
   ],
 
   "background": {
-    "scripts": ["lib/background.js"]
+    "scripts": ["lib/md5.js", "lib/background.js"]
   },
 
   "content_scripts": [{

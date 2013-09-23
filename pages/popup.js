@@ -160,7 +160,7 @@ function handleResponse(res) {
       requestScriptList();
       break;
     case 'ADD_LIST':
-      console.err('we already have this url!!!');
+      console.log('status : ' + res.status);
       break;
   }
 }
@@ -249,9 +249,10 @@ function initPopup() {
     // TODO: add script
     if (input.value && name.value) {
       var data = {};
+      data.type = 'ADD_LIST';
       data.name = name.value;
       data.url  = input.value;
-      chrome.extension.sendMessage({type:'ADD_LIST', data:data}, handleResponse);
+      chrome.extension.sendMessage(data, handleResponse);
       input.value = '';
       name.value  = '';
       toggleQuery(false);
