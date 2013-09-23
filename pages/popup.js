@@ -10,7 +10,7 @@ function initSwitch() {
   var lis = getElem('libraryList').children;
   for(var i = 0 ; i < lis.length ; i++) {
     var el = lis[i];
-    el.slider = el.slider || getElem('p', el)[0]; 
+    el.slider = el.slider || getElem('p', el)[0];
     el.status = false;
     removeClass(el.slider, 'selected');
   }
@@ -110,7 +110,7 @@ function slideSwitch( element ){
     }else{
       searchBox.style.display = 'none';
       editBox.style.display = 'none';
-      autoSwitchUpdate(); 
+      autoSwitchUpdate();
     }
     return true;
   }else{
@@ -130,7 +130,7 @@ function autoSwitchOFF(){
 }
 
 function autoSwitchUpdate(){
-  var i = 0, 
+  var i = 0,
       l = _elemArray.length;
   for(; i < l; ++i){
     var elem = _elemArray[i];
@@ -203,8 +203,8 @@ function initPopup() {
       btn .style.display = 'none';
       name.style.display = 'none';
     }
-  }
-
+  };
+  
   input.addEventListener('keyup', function(e) {
     var value = e.target.value;
     if (e.keyCode === 13 && value) {
@@ -242,7 +242,7 @@ function initPopup() {
   });
 
   autoSwitch.addEventListener('click', function(){
-    if(slideSwitch(this)){}; // do something
+    if(slideSwitch(this)){} // do something
   });
 
   btn.addEventListener('click', function(e) {
