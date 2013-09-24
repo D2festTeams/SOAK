@@ -219,11 +219,11 @@ function initPopup() {
       return;
     }
     if (value.length < 5) {
-      toggleQuery(false);
+      // toggleQuery(false);
       filterData(value);
     } else {
       var result = _httpRegex.exec(value);
-      toggleQuery(result);
+      // toggleQuery(result);
     }
   });
 
