@@ -1,4 +1,5 @@
 var _scripts,
+    _scriptQue = [],
     _elemArray = [],
     _httpRegex = /^(http\:\/\/|https\:\/\/)/;
 
@@ -24,6 +25,7 @@ function getElem( query, obj ){
 function tabCallback(scriptInfo) {
   return function(tabs) {
     // save selected script info to "background.js"
+    console.log(scriptInfo);
     chrome.extension.sendMessage({type:'INJECT_LIST', data:scriptInfo, tab:tabs[0].id});
     // request reload current page to "content.js"
     chrome.tabs.sendMessage(tabs[0].id, {type:'INJECT_LIST'});
@@ -52,7 +54,7 @@ function checkLibraryList() {
       i = 0,
       l = _elemArray.length;
   for (; i < l; i++ ){
-    if(_elemArray[i].status) returnArray.push(_scripts[i]);
+    if(_elemArray[i].status) returnArray.push(_elemArray[i].dataset.uid);
   }
   return returnArray;
 }
@@ -75,12 +77,13 @@ function updateScriptList(data) {
     li.appendChild(p);
     li.appendChild(p2);
     li.setAttribute('data-libName', data[i].name);
-    li.setAttribute('data-index', i);
+    li.setAttribute('data-uid', data[i].uid);
     li.addEventListener('click', handleEvent);
     ul.appendChild(_elemArray[i] = li);
     _elemArray[i].slider = p;
     _elemArray[i].checkbox = p2;
-    _elemArray[i].indexNumber = i;
+    // _elemArray[i].indexNumber = i;
+    // console.log(data[i]);
   }
   autoSwitchUpdate();
 }
@@ -88,8 +91,8 @@ function updateScriptList(data) {
 
 function handleEvent(e) {
   slideSwitch(this);
-  console.log('click on : ' + e.currentTarget.dataset.index);
-  var selected = e.currentTarget.dataset.index;
+  // console.log('click on : ' + e.currentTarget.dataset.index);
+  var selected = e.currentTarget.dataset.uid;
   // var scriptInfo = convertDepends(_scripts[selected]);
   var scriptInfo = checkLibraryList();
   scriptInfo.filter(function(item) {
@@ -154,12 +157,16 @@ function handleResponse(res) {
       _scripts = res.listArray;
       console.table(_scripts);
       updateScriptList(_scripts);
+      chrome.extension.sendMessage({type:'REQ_SELECTED_LIST'}, handleResponse);
+      break;
+    case 'REQ_SELECTED_LIST':
+      console.dir(res);
       break;
     case 'DATA_CHANGED':
       console.log('data changed');
       requestScriptList();
       break;
-    case 'ADD_LIST':
+    case 'INJECTED':
       console.log('status : ' + res.status);
       break;
   }
@@ -180,8 +187,8 @@ function filterData(query) {
 }
 
 function initPopup() {
-  var input = getElem('soak-query'),
-      name  = getElem('soak-name'),
+  var searchBox = getElem('soak-query'),
+      // name  = getElem('soak-name'),
       libraryList = getElem('libraryList'),
       searchBox = getElem('searchBox'),
       editBox = getElem('editBox'),
@@ -194,18 +201,18 @@ function initPopup() {
       editButton.box = editBox;
       searchButton.box = searchBox;
       autoSwitch.myButton = getElem('p', autoSwitch)[0];
-      btn   = document.getElementsByClassName('soak-btn')[0];
-  var toggleQuery = function (show) {
-    if (show) {
-      btn .style.display = 'block';
-      name.style.display = 'block';
-    } else {
-      btn .style.display = 'none';
-      name.style.display = 'none';
-    }
-  };
+      // btn   = document.getElementsByClassName('soak-btn')[0];
+  // var toggleQuery = function (show) {
+  //   if (show) {
+  //     // btn .style.display = 'block';
+  //     // name.style.display = 'block';
+  //   } else {
+  //     // btn .style.display = 'none';
+  //     // name.style.display = 'none';
+  //   }
+  //}
   
-  input.addEventListener('keyup', function(e) {
+  searchBox.addEventListener('keyup', function(e) {
     var value = e.target.value;
     if (e.keyCode === 13 && value) {
       // TODO: search or add url
@@ -229,12 +236,14 @@ function initPopup() {
     toggleBoxes(this);
   });
 
-  addButton.addEventListener('click', function(){
-    // do something
-  });
-
   removeButton.addEventListener('click', function(){
-    if(confirm(' Delete selected libraries ?')){} // do something
+    if(confirm('Remove selected libraries ?')){
+      var data = {};
+      data.type = "REMOVE_LIST";
+      data.listArray = checkLibraryList();
+      console.log(data);
+      chrome.extension.sendMessage(data, handleResponse);
+    }
   });
 
   injectButton.addEventListener('click', function(){
@@ -245,17 +254,22 @@ function initPopup() {
     if(slideSwitch(this)){} // do something
   });
 
-  btn.addEventListener('click', function(e) {
+  addButton.addEventListener('click', function(e) {
+    var libName = getElem('libraryName'),
+        libURL  = getElem('libraryURL'),
+        libCSS  = getElem('styleURL');
     // TODO: add script
-    if (input.value && name.value) {
+    if (libName.value && libURL.value) {
       var data = {};
       data.type = 'ADD_LIST';
-      data.name = name.value;
-      data.url  = input.value;
+      data.name = libName.value;
+      data.url  = libURL.value;
+      data.css = libCSS.value;
+      console.log(data);
       chrome.extension.sendMessage(data, handleResponse);
-      input.value = '';
-      name.value  = '';
-      toggleQuery(false);
+      libName.value = libURL.value = libCSS.value = '';
+      // name.value  = '';
+      // toggleBoxes(false);
     }
   });
 }
