@@ -289,6 +289,7 @@ function toggleBoxes (elem) {
     editBox.style.display = 'none';
     elem.box.style.display = 'block';
   }
+  window.scrollTo(0, document.body.scrollHeight);
 }
 
 function onLoad() {
