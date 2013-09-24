@@ -313,6 +313,24 @@ div.item:hover {
     border-color: #fff;
   }
 
+  #grayButton{
+    background-color: #999;
+  }
+
+  #redButton{
+    background-color: #d91303;
+  }
+
+  #grayButton, 
+  #redButton{
+    color: #ccc;
+  }
+
+  #grayButton:hover, 
+  #redButton:hover{
+    color: #fff;
+  }  
+
   .soakInput{
     display: block;
     width: 260px;
@@ -354,3 +372,32 @@ div.item:hover {
       margin: 0 10px;
       display: inline-block;
     }
+
+  #confirmModal{
+    display: none;
+  }
+
+  #confirmModal .bgcover{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    top: 0;
+    padding: 0;
+    background-color: rgba( 0, 0, 0, 0.6 );
+    z-index: 9000;
+  }
+
+  #confirmModal .buttonLayer{
+    position: fixed;
+    top: 160px;
+    width: 100%;
+    z-index: 10000;
+  }
+
+  #confirmModal .buttonLayer ul li{
+    text-align: center;
+    display: block;
+    width: 120px;
+    margin: 20px auto;
+  }

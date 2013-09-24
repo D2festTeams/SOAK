@@ -183,12 +183,15 @@ function initPopup() {
       // name  = getElem('soak-name'),
       libraryList = getElem('libraryList'),
       searchBox = getElem('searchBox'),
+      confirmModal = getElem('confirmModal'),
       editBox = getElem('editBox'),
       addButton = getElem('addButton'),
       removeButton = getElem('removeButton'),
       injectButton = getElem('injectButton'),
       searchButton = getElem('searchButton'),
       editButton = getElem('editButton'),
+      grayButton = getElem('grayButton'),
+      redButton = getElem('redButton'),
       autoSwitch = getElem('autoSwitch');
       editButton.box = editBox;
       searchButton.box = searchBox;
@@ -228,14 +231,8 @@ function initPopup() {
     toggleBoxes(this);
   });
 
-  removeButton.addEventListener('click', function(){
-    if(confirm('Remove selected libraries ?')){
-      var data = {};
-      data.type = "REMOVE_LIST";
-      data.listArray = checkLibraryList();
-      console.log(data);
-      chrome.extension.sendMessage(data, handleResponse);
-    }
+  removeButton.addEventListener('click', function(e){
+    openModal();
   });
 
   injectButton.addEventListener('click', function(){
@@ -264,6 +261,27 @@ function initPopup() {
       // toggleBoxes(false);
     }
   });
+
+  grayButton.addEventListener('click', function(){
+    closeModal();
+  });
+
+  redButton.addEventListener('click', function(){
+    closeModal();
+    var data = {};
+    data.type = "REMOVE_LIST";
+    data.listArray = checkLibraryList();
+    console.log(data);
+    chrome.extension.sendMessage(data, handleResponse);
+  });
+}
+
+function openModal () {
+  confirmModal.style.display = 'block';
+}
+
+function closeModal () {
+  confirmModal.style.display = 'none';
 }
 
 function toggleBoxes (elem) {
