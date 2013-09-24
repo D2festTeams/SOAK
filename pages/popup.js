@@ -163,7 +163,7 @@ function handleResponse(res) {
       _scripts = res.listArray;
       console.table(_scripts);
       updateScriptList(_scripts);
-      chrome.extension.sendMessage({type:'REQ_SELECTED_LIST'}, handleResponse);
+      // chrome.extension.sendMessage({type:'REQ_SELECTED_LIST'}, handleResponse);
       break;
     case 'REQ_SELECTED_LIST':
       console.dir(res);
