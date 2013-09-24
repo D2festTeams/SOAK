@@ -26,16 +26,25 @@ function tabCallback(scriptInfo) {
   return function(tabs) {
     var tab = tabs[0];
     var msg = {};
-    msg.type   = 'INJECT_LIST';
-    msg.data   = scriptInfo;
-    msg.tabID  = tab.id;
-    msg.tabURL = tab.url;
+    msg.type    = 'INJECT_LIST';
+    msg.data    = scriptInfo;
+    msg.tabID   = tab.id;
+    msg.tabURL  = tab.url;
+    msg.UIDList = getUIDList(scriptInfo);
 
     // save selected script info to "background.js"
     chrome.extension.sendMessage(msg);
     // request reload current page to "content.js"
     chrome.tabs.sendMessage(tab.id, {type:'INJECT_LIST'});
   }
+}
+
+function getUIDList(scriptInfo) {
+  var result = [];
+  scriptInfo.map(function(item) {
+    result.push(item.uid);
+  });
+  return result;
 }
 
 function convertDepends(scriptInfo) {
