@@ -47,23 +47,6 @@ function getUIDList(scriptInfo) {
   return result;
 }
 
-function convertDepends(scriptInfo) {
-  if (!scriptInfo.depends) return scriptInfo;
-
-  var result = _httpRegex.exec(scriptInfo.depends);
-
-  if (result) return scriptInfo;
-
-  for(var s in _scripts) {
-    if (_scripts[s].name === scriptInfo.depends) {
-      scriptInfo.depends = _scripts[s].url;
-      break;
-    }
-    delete scriptInfo.depends;
-  }
-  return scriptInfo;
-}
-
 function checkLibraryList() {
   var returnArray = [],
       i = 0,
