@@ -106,14 +106,8 @@ function updateScriptList(data) {
 
 function handleEvent(e) {
   slideSwitch(this);
-  // console.log('click on : ' + e.currentTarget.dataset.index);
   var selected = e.currentTarget.dataset.uid;
-  // var scriptInfo = convertDepends(_scripts[selected]);
   var scriptInfo = checkLibraryList();
-  scriptInfo.filter(function(item) {
-    return convertDepends(item);
-  });
-  // check depends and convert to url
   if(autoSwitch.status) callBackground(scriptInfo);
 }
 
