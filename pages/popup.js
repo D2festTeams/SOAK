@@ -79,8 +79,7 @@ function updateScriptList(data) {
     ul.appendChild(_elemArray[i] = li);
     _elemArray[i].slider = p;
     _elemArray[i].checkbox = p2;
-    // _elemArray[i].indexNumber = i;
-    // console.log(data[i]);
+     if(!!data[i].checked) slideSwitch(_elemArray[i]);
   }
   autoSwitchUpdate();
 }
