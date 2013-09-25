@@ -159,6 +159,7 @@ function handleResponse(res) {
       requestScriptList();
       break;
     case 'INJECTED':
+      window.close();
       console.log('status : ' + res.status);
       break;
   }
