@@ -166,7 +166,9 @@ function handleResponse(res) {
 
 function requestScriptList() {
   // send msg to background.js
-  chrome.extension.sendMessage({type:'REQ_SCRIPT_LIST'}, handleResponse);
+  chrome.tabs.query({active:true, currentWindow:true}, function(tabs) {
+    chrome.extension.sendMessage({type:'REQ_SCRIPT_LIST', tabID:tabs[0].id, tabURL:tabs[0].url}, handleResponse);
+  });
 }
 
 function filterData(query) {
