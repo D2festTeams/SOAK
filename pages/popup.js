@@ -30,8 +30,7 @@ function tabCallback(scriptInfo) {
     msg.data    = scriptInfo;
     msg.tabID   = tab.id;
     msg.tabURL  = tab.url;
-    msg.UIDList = getUIDList(scriptInfo);
-
+    msg.UIDList = scriptInfo;
     // save selected script info to "background.js"
     chrome.extension.sendMessage(msg);
     // request reload current page to "content.js"
@@ -148,8 +147,9 @@ function handleResponse(res) {
       // TODO: merge scripts & res.scripts
       _scripts = res.listArray;
       console.table(_scripts);
+      chrome.extension.sendMessage({type:'REQ_SELECTED_LIST'}, handleResponse);
+      console.log('send REQ_SELECTED_LIST Message');
       updateScriptList(_scripts);
-      // chrome.extension.sendMessage({type:'REQ_SELECTED_LIST'}, handleResponse);
       break;
     case 'REQ_SELECTED_LIST':
       console.dir(res);
