@@ -35,3 +35,7 @@ SOAK Chrom Browser Extension.
 `chrome canaray` 최신버전에서 확장기능을 선택해도 팝업창이 보이지 않음
 
 * `chrome://flags` 에서 `GPU compositing on all pages` 를 `disable` 로 설정하여 일시적으로 해결 가능
+
+## License
+
+License under [MIT](https://github.com/D2festTeams/SOAK/blob/fab712ecb7648d4636c568d1c9db3e0da07189a5/LICENSE). enjoy!!
