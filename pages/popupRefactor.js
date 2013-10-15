@@ -6,8 +6,7 @@
 		message = new Message(),
 		list = new List();
 	
-	context.$ = util.$;
-	context.list = list;
+	// this.$ = util.$;
 	context.onload = function(){
 		var _httpRegex = /^(http\:\/\/|https\:\/\/)/;
 		chrome.tabs.query({
@@ -20,8 +19,7 @@
 				list.hide();
 			}
 		});
-	};
-
+	}
 
 
 	function Util(){
@@ -30,26 +28,8 @@
 				var elements = document.querySelectorAll($query);
 				return elements.length > 1 ? elements : elements[0];
 			}
-		};
+		}
 	}
-
-
-
-	function Message(){
-
-		return {
-			send : function(obj){
-				alert(obj);
-			},
-
-			handle: function(){
-
-			}
-		};
-
-	}
-
-
 
 	function List(){
 		var repository = [],
@@ -61,7 +41,7 @@
 				message.send({
 					type : '',
 
-				}, message.handle);
+				});
 			},
 
 			add : function(){
@@ -84,5 +64,18 @@
 		};
 	}
 
+	function Message(){
+
+		return {
+			send : function(obj){
+				alert(obj);
+			},
+
+			handle: function(){
+
+			}
+		};
+
+	}
 
 })(this);
